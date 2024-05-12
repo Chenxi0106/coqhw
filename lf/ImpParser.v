@@ -137,14 +137,12 @@ Notation "' p <- e1 ;; e2"
        end)
    (right associativity, p pattern, at level 60, e1 at next level).
 
-Notation "'TRY' e1 'OR' e2"
-   := (
-    let result := e1 in
-    match result with
-       | SomeE _  => result
-       | NoneE _ => e2
+Notation "'TRY' ' p <- e1 ;; e2 'OR' e3"
+   := (match e1 with
+       | SomeE p => e2
+       | NoneE _ => e3
        end)
-   (right associativity,
+   (right associativity, p pattern,
     at level 60, e1 at next level, e2 at next level).
 
 (* ----------------------------------------------------------------- *)
@@ -462,4 +460,4 @@ Example eg2 : parse "
       "x" := "z" }>.
 Proof. cbv. reflexivity. Qed.
 
-(* 2023-12-29 17:12 *)
+(* 2022-08-08 17:13 *)
